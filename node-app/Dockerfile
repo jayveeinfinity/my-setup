@@ -1,7 +1,20 @@
-# Node.js Dockerfile
+# Use the official Node.js image as the base
 FROM node:18-alpine
+
+# Set the working directory inside the container
 WORKDIR /app
-COPY . .
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install --legacy-peer-deps
-CMD ["node", "app.js"]
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the application port
 EXPOSE 3000
+
+# Start the Node.js application
+CMD ["node", "app.js"]
